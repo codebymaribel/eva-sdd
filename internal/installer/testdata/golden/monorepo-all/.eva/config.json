@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "evaVersion": "test",
+  "project": "demo",
+  "stacks": [
+    {
+      "id": "react-native",
+      "path": "apps/mobile"
+    },
+    {
+      "id": "nextjs",
+      "path": "apps/web"
+    }
+  ],
+  "agents": [
+    "claude",
+    "opencode"
+  ]
+}

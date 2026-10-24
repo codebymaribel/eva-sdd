@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "evaVersion": "test",
+  "project": "demo",
+  "stacks": [
+    {
+      "id": "nextjs",
+      "path": "."
+    }
+  ],
+  "agents": [
+    "opencode"
+  ]
+}

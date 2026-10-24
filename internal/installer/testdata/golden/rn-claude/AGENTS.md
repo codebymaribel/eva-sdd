@@ -1,0 +1,56 @@
+<!-- eva:start — managed by eva, do not edit inside this block; re-run `eva init` to update -->
+# Spec-Driven Development (SDD)
+
+This project follows a spec-driven workflow. **No production code is written for a feature until its spec, plan and tasks have been approved by a human developer.**
+
+## Project context
+
+- Project: **demo**
+- Constitution (non-negotiable rules): `.eva/constitution.md`
+- Active stacks:
+  - React Native (Expo) → `.` — rules: `.eva/stacks/react-native.md`
+- Feature specs: `specs/NNN-feature-slug/` (`spec.md`, `clarify.md`, `plan.md`, `tasks.md`, `verification.md`)
+- Document templates: `.eva/templates/`
+- Architecture decisions: `docs/adr/`
+
+Before starting any phase, read `.eva/constitution.md` and the stack file(s) that apply to the feature.
+
+## Phases
+
+| # | Phase     | Command          | Output                     | Gate                         |
+|---|-----------|------------------|----------------------------|------------------------------|
+| 0 | Constitution | `/eva-constitution` | `.eva/constitution.md` (once per project, amended rarely) | Developer approves |
+| 1 | Specify   | `/eva-specify`   | `spec.md` (what & why)     | —                            |
+| 1b | Clarify  | `/eva-clarify`   | `clarify.md` (findings only, never edits the spec) | Developer answers; `/eva-specify` applies; developer approves the spec |
+| 2 | Plan      | `/eva-plan`      | `plan.md` (how)            | Developer approves           |
+| 3 | Tasks     | `/eva-tasks`     | `tasks.md` (ordered steps) | Developer approves           |
+| 4 | Implement | `/eva-implement` | Code + tests, one task at a time | Tests pass per task    |
+| 5 | Verify    | `/eva-verify`    | `verification.md`          | Developer marks spec `done`  |
+
+If your agent has no slash commands, open the matching file in `.eva/commands/` (e.g. `.eva/commands/specify.md`) and follow it step by step.
+
+## Approval gate — hard rules
+
+1. **Never approve your own work.** You MUST NOT set `status: approved` or `status: done`, and you MUST NOT fill `approved_by`, `approved_at` or `closed_at` in any SDD document. Only a human edits those fields. You do fill `type` and `created` (today, `YYYY-MM-DD`) when you create a document.
+2. When a phase document is ready, set `status: in-review`, summarise it and list open questions, then **STOP**. Do not start the next phase in the same turn.
+3. Approval is read from the file, not inferred from chat. "Looks good", silence or an unrelated reply is not approval: re-read the front-matter and continue only if it says `status: approved`.
+4. Never start a phase whose predecessor is not approved: a spec needs an approved constitution, a plan needs an approved spec, tasks need an approved plan, implementation needs approved tasks.
+5. A document containing `[NEEDS CLARIFICATION: …]` cannot be approved, and a spec cannot be approved while its `clarify.md` is missing or has open findings. Ask the developer instead of guessing; never answer a finding yourself.
+6. If a later phase shows that an approved document is wrong, stop and propose the change. Editing an approved document sets it back to `status: in-review` and clears `approved_by` and `approved_at`.
+
+## Implementation rules
+
+- Work on one task at a time, in order. Tasks marked `[P]` may run in parallel.
+- Every task has a type (`[feat]`, `[fix]`, `[improve]`) and cites the requirements it implements (`— FR-1`). It is one commit with at most 3 code files (5 at most).
+- **Tests first:** for `[feat]` and `[fix]`, write the task's tests before the code and see them fail for the expected reason; record it in *Implementation notes*. Test names start with the requirement they verify (`FR-1: …`). `[improve]` keeps the existing tests green without changing them.
+- Only touch the files listed in the plan's file map and the task. If you need another file, stop and ask.
+- Tick a task (`- [x]`) only after its tests, typecheck and lint pass.
+- Do not change unrelated code, formatting or dependencies "while you are there".
+- Run `eva check` before opening a pull request.
+
+## Branches and commits
+
+- Branch per feature: `feat/NNN-feature-slug`.
+- Commit messages use the task's type and reference the feature and task: `feat(NNN): T003 add login form validation`.
+- The pull request links `specs/NNN-feature-slug/` and includes `verification.md`.
+<!-- eva:end -->
