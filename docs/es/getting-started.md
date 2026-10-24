@@ -4,13 +4,22 @@
 
 ## Requisitos
 
-- Go 1.24 o superior (solo para instalar eva; tu proyecto no necesita Go).
+- Homebrew, o Go 1.24 o superior, para instalar eva (tu proyecto no necesita Go).
 - Git, para el gate por rama de `eva check`.
 - Un agente de código. Claude Code y OpenCode reciben atajos `/eva-*`; cualquier otro agente puede seguir `AGENTS.md` y `.eva/commands/*.md`.
 
 ## Instalar
 
-Desde GitHub (cuando el repositorio esté publicado):
+Con Homebrew (macOS y Linux):
+
+```sh
+brew install codebymaribel/tap/eva
+brew upgrade eva      # más adelante, para actualizar
+```
+
+Homebrew compila eva desde el código del release y compara la descarga con la huella (checksum) de la receta. Instala Go por su cuenta como dependencia de compilación.
+
+Con Go:
 
 ```sh
 go install github.com/codebymaribel/eva-sdd/cmd/eva@latest
@@ -23,7 +32,7 @@ cd eva-sdd
 make install          # go install ./cmd/eva
 ```
 
-Ambos dejan el binario en `$(go env GOPATH)/bin`. Si la terminal dice `command not found: eva`, agrega esa carpeta al `PATH`:
+`go install` y `make install` dejan el binario en `$(go env GOPATH)/bin`. Si la terminal dice `command not found: eva`, agrega esa carpeta al `PATH`:
 
 ```sh
 echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> ~/.zshrc   # o ~/.bashrc

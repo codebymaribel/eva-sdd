@@ -58,13 +58,20 @@ Full documentation lives in [`docs/`](docs/README.md) — also [in Spanish](docs
 
 ## Install
 
-Requires Go 1.24+.
+With Homebrew (macOS and Linux):
+
+```sh
+brew install codebymaribel/tap/eva
+brew upgrade eva   # later, to update
+```
+
+With Go 1.24+:
 
 ```sh
 go install github.com/codebymaribel/eva-sdd/cmd/eva@latest
 ```
 
-Templates are embedded in the binary, so installing a new version also updates the templates. Make sure `$(go env GOPATH)/bin` is on your `PATH`.
+Templates are embedded in the binary, so installing a new version also updates the templates. With `go install`, make sure `$(go env GOPATH)/bin` is on your `PATH`.
 
 ## Usage
 

@@ -65,5 +65,5 @@ Decisiones de la v2:
 
 ## Ideas para más adelante
 
-- Releases con GoReleaser y un tap de Homebrew, al publicar la v1, para instalar eva sin Go.
+- Binarios precompilados, para que ni Homebrew ni Go tengan que compilar eva (requiere firma y notarización de macOS).
 - Más agentes (Cursor, GitHub Copilot, Gemini CLI) después de la v1, a medida que los pidan.

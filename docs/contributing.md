@@ -17,6 +17,16 @@ make golden   # regenerate installer golden files after editing templates/
 
 CI (`.github/workflows/ci.yml`) runs `make lint` and `make test` on pushes to `main` and on pull requests.
 
+## Releasing
+
+Push a `vX.Y.Z` tag from `main`:
+
+```sh
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+`.github/workflows/release.yml` creates the GitHub release and points `Formula/eva.rb` in [codebymaribel/homebrew-tap](https://github.com/codebymaribel/homebrew-tap) at the new tag and its `sha256`. It needs the repository secret `HOMEBREW_TAP_TOKEN`: a fine-grained token with access to `homebrew-tap` only and *Contents: Read and write*.
+
 To try a change by hand, `make install` and run `eva init` / `eva check` in a throwaway project — see the [tutorial](tutorial.md).
 
 ## Principles

@@ -17,6 +17,16 @@ make golden   # regenera los goldens del instalador después de editar templates
 
 CI (`.github/workflows/ci.yml`) corre `make lint` y `make test` en los push a `main` y en los pull requests.
 
+## Publicar una versión
+
+Sube un tag `vX.Y.Z` desde `main`:
+
+```sh
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+`.github/workflows/release.yml` crea el release en GitHub y apunta `Formula/eva.rb` de [codebymaribel/homebrew-tap](https://github.com/codebymaribel/homebrew-tap) al tag nuevo y su `sha256`. Necesita el secret `HOMEBREW_TAP_TOKEN` en el repo: un token fine-grained con acceso solo a `homebrew-tap` y *Contents: Read and write*.
+
 Para probar un cambio a mano, corre `make install` y usa `eva init` / `eva check` en un proyecto descartable: ver el [tutorial](tutorial.md).
 
 ## Principios
